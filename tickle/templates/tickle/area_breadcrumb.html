@@ -1,0 +1,7 @@
+{% if area.parent %}
+  {% include 'tickle/area_breadcrumb.html' with area=area.parent %} &gt;
+{% else %}
+  <a href='{% url "tickle:area-list" %}'>All</a> &gt;
+{% endif %}
+
+<a href='{% url "tickle:area-detail" pk=area.pk %}'>{{ area.name }}</a>

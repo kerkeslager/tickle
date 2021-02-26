@@ -1,0 +1,17 @@
+{% if route.pitches.count > 1 %}
+  <header>
+    <h2>
+      P{{ pitch.order }}
+
+      {% if pitch.name %}
+        {{ pitch.name }}
+      {% endif %}
+    </h2>
+
+    <div>{{ pitch.difficulty }}</div>
+  </header>
+{% endif %}
+
+{% if pitch.notes %}
+  <div>{{ pitch.notes }}</div>
+{% endif %}

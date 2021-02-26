@@ -1,0 +1,22 @@
+<html>
+  <head></head>
+
+  <body>
+    {% include 'tickle/area_breadcrumb.html' with area=route.area %}
+    <header>
+      <h1>{{ route.name }}</h1>
+      <div>{{ route.difficulty }}</div>
+      <div>{{ route.notes }}</div>
+
+      {% if route.pitches.count == 1 %}
+        {% include 'tickle/pitch_list_item.html' with pitch=route.pitches.first %}
+      {% else %}
+        <ul>
+          {% for pitch in route.pitches.all %}
+            <li>{% include 'tickle/pitch_list_item.html' %}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </header>
+  </body>
+</html>

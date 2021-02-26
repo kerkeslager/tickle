@@ -14,7 +14,7 @@
     Boulders
     <ul>
       {% for boulder in area.boulders.all %}
-        <li>{{ boulder.name }}</li>
+        <li>{% include 'tickle/boulder_list_item.html' %}</li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -23,7 +23,7 @@
     Routes
     <ul>
       {% for route in area.routes.all %}
-        <li>{{ route.name }}</li>
+        <li>{% include 'tickle/route_list_item.html' %}</li>
       {% endfor %}
     </ul>
   {% endif %}

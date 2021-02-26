@@ -1,0 +1,12 @@
+<html>
+  <head></head>
+
+  <body>
+    {% include 'tickle/area_breadcrumb.html' with area=boulder.area %}
+    <header>
+      <h1>{{ boulder.name }}</h1>
+      <div>{{ boulder.difficulty }}</div>
+      <div>{{ boulder.notes }}</div>
+    </header>
+  </body>
+</html>

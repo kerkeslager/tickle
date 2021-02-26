@@ -15,11 +15,11 @@ class AttemptListView(ListView):
 attempt_list = AttemptListView.as_view()
 
 class BoulderDetailView(DetailView):
-    pass
+    model = models.Boulder
 boulder_detail = BoulderDetailView.as_view()
 
 class RouteDetailView(DetailView):
-    pass
+    model = models.Route
 route_detail = RouteDetailView.as_view()
 
 class TodoListView(ListView):
