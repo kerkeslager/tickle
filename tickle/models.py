@@ -116,6 +116,7 @@ class Pitch(models.Model):
 
     class Meta:
         ordering = ('order',)
+        verbose_name_plural = 'Pitches'
 
     def __str__(self):
         return 'P{} ({})'.format(self.order, self.difficulty)
