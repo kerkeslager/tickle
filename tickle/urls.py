@@ -8,7 +8,7 @@ from . import views
 app_name = 'tickle'
 
 urlpatterns = (
-    path('area', views.area_list, name='area-list'),
+    path('', views.area_list, name='area-list'),
     path('area/<int:pk>', views.area_detail, name='area-detail'),
     path('attempt', views.attempt_list, name='attempt-list'),
     path('boulder/<int:pk>', views.boulder_detail, name='boulder-detail'),
