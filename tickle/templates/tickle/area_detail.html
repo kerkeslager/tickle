@@ -1,0 +1,32 @@
+<html>
+  <head></head>
+  <body>
+    <h1>{{ area.name }}</h1>
+
+    {% if area.children.count > 0 %}
+      <ul>
+        {% for child in area.children.all %}
+          {% include 'tickle/area_list_item.html' with area=child %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if area.boulders.count > 0 %}
+      Boulders
+      <ul>
+        {% for boulder in area.boulders.all %}
+          <li>{{ boulder.name }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if area.routes.count > 0 %}
+      Routes
+      <ul>
+        {% for route in area.routes.all %}
+          <li>{{ route.name }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </body>
+</html>

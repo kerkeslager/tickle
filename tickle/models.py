@@ -29,12 +29,14 @@ BOULDER_DIFFICULTY_CHOICES = (
     ('v16', 'v16'),
 )
 
+# TODO Provide a way of getting only Area objects which contain boulders/routes
 class Area(models.Model):
     parent = models.ForeignKey(
         'self',
         blank=True,
         null=True,
         on_delete=models.CASCADE,
+        related_name='children',
     )
     name = models.CharField(max_length=64)
     notes = models.TextField(blank=True)
@@ -46,7 +48,11 @@ class Area(models.Model):
         return '{} > {}'.format(self.parent, self.name)
 
 class Boulder(models.Model):
-    area = models.ForeignKey('Area', on_delete=models.PROTECT)
+    area = models.ForeignKey(
+        'Area',
+        on_delete=models.PROTECT,
+        related_name='boulders',
+    )
     name = models.CharField(max_length=64)
     difficulty = models.CharField(
         choices=BOULDER_DIFFICULTY_CHOICES,
@@ -128,7 +134,11 @@ PROTECTION_STYLE_CHOICES = (
 )
 
 class Route(models.Model):
-    area = models.ForeignKey('Area', on_delete=models.PROTECT)
+    area = models.ForeignKey(
+        'Area',
+        on_delete=models.PROTECT,
+        related_name='routes'
+    )
     name = models.CharField(max_length=64)
     protection_style = models.CharField(max_length=8, choices=PROTECTION_STYLE_CHOICES)
     mountainproject = models.URLField(blank=True)
