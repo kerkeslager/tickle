@@ -12,6 +12,7 @@ class RouteAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Route, RouteAdmin)
 
+admin.site.register(models.Area)
 admin.site.register(models.Attempt)
 admin.site.register(models.Boulder)
 admin.site.register(models.Todo)
