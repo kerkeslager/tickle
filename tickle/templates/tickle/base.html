@@ -1,0 +1,28 @@
+<!doctype html>
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title>{% block tickle_title_name %}{% endblock %}</title>
+  </head>
+
+  <body>
+    <nav>
+      {% block tickle_nav %}{% endblock %}
+    </nav>
+
+    <header>
+      <h1>{% block tickle_header_name %}{% endblock %}</h1>
+      {% block tickle_extra_header %}{% endblock %}
+    </header>
+
+    <main>
+      {% block tickle_main %}{% endblock %}
+    </main>
+
+    <footer>
+    </footer>
+  </body>
+</html>

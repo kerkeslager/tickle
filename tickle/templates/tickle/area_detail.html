@@ -1,40 +1,40 @@
-<html>
-  <head></head>
-  <body>
-    {% if area.parent %}
-      {% include 'tickle/area_breadcrumb.html' with area=area.parent %}
-    {% endif %}
+{% extends 'tickle/base.html' %}
 
-    <h1>{{ area.name }}</h1>
+{% block tickle_title_name %}{{ area.name }}{% endblock %}
+{% block tickle_header_name %}{{ area.name }}{% endblock %}
 
-    {% if area.children.count > 0 %}
-      <ul>
-        {% for child in area.children.all %}
-          {% include 'tickle/area_list_item.html' with area=child %}
-        {% endfor %}
-      </ul>
-    {% endif %}
+{% block tickle_nav %}
+  {% include 'tickle/area_breadcrumb.html' %}
+{% endblock %}
 
-    <div>
-      {{ area.notes }}
-    </div>
+{% block tickle_main %}
+  {% if area.children.count > 0 %}
+    <ul>
+      {% for child in area.children.all %}
+        {% include 'tickle/area_list_item.html' with area=child %}
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-    {% if area.boulders.count > 0 %}
-      Boulders
-      <ul>
-        {% for boulder in area.boulders.all %}
-          <li>{% include 'tickle/boulder_list_item.html' %}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+  <div>
+    {{ area.notes }}
+  </div>
 
-    {% if area.routes.count > 0 %}
-      Routes
-      <ul>
-        {% for route in area.routes.all %}
-          <li>{% include 'tickle/route_list_item.html' %}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </body>
-</html>
+  {% if area.boulders.count > 0 %}
+    Boulders
+    <ul>
+      {% for boulder in area.boulders.all %}
+        <li>{% include 'tickle/boulder_list_item.html' %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if area.routes.count > 0 %}
+    Routes
+    <ul>
+      {% for route in area.routes.all %}
+        <li>{% include 'tickle/route_list_item.html' %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

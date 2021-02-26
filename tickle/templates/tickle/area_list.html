@@ -1,11 +1,12 @@
-<html>
-  <head></head>
-  <body>
-    <h1>All Areas</h1>
-    <ul>
-      {% for area in area_list %}
-        {% include 'tickle/area_list_item.html' %}
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends 'tickle/base.html' %}
+
+{% block tickle_title_name %}All Areas{% endblock %}
+{% block tickle_header_name %}All Areas{% endblock %}
+
+{% block tickle_main %}
+  <ul>
+    {% for area in area_list %}
+      {% include 'tickle/area_list_item.html' %}
+    {% endfor %}
+  </ul>
+{% endblock %}

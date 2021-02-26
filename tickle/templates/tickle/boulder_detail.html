@@ -1,12 +1,16 @@
-<html>
-  <head></head>
+{% extends 'tickle/base.html' %}
 
-  <body>
-    {% include 'tickle/area_breadcrumb.html' with area=boulder.area %}
-    <header>
-      <h1>{{ boulder.name }}</h1>
-      <div>{{ boulder.difficulty }}</div>
-      <div>{{ boulder.notes }}</div>
-    </header>
-  </body>
-</html>
+{% block tickle_title_name %}{{ boulder.name }}{% endblock %}
+{% block tickle_header_name %}{{ boulder.name }}{% endblock %}
+
+{% block tickle_nav %}
+  {% include 'tickle/area_breadcrumb.html' with area=boulder.area is_parent=True %}
+{% endblock %}
+
+{% block tickle_extra_header %}
+  <h2>{{ boulder.difficulty }}</h2>
+{% endblock %}
+
+{% block tickle_main %}
+  <div>{{ boulder.notes }}</div>
+{% endblock %}
