@@ -17,13 +17,23 @@ class Boulder(models.Model):
         on_delete=models.PROTECT,
         related_name='boulders',
     )
-    mountainproject = models.URLField(null=True)
+    mountainproject = models.URLField(blank=True)
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.difficulty)
 
 class BoulderDifficulty(models.Model):
     order = models.PositiveSmallIntegerField()
     name = models.CharField(max_length=8)
 
+    class Meta:
+        ordering = ('order',)
+
+    def __str__(self):
+        return self.name
+
 class Pitch(models.Model):
+    order = models.PositiveSmallIntegerField()
     route = models.ForeignKey(
         'Route',
         on_delete=models.CASCADE,
@@ -35,6 +45,12 @@ class Pitch(models.Model):
         related_name='pitches',
     )
 
+    class Meta:
+        ordering = ('order',)
+
+    def __str__(self):
+        return 'P{} ({})'.format(self.order, self.difficulty)
+
 PROTECTION_STYLE_CHOICES = (
     ('sport', 'Sport'),
     ('toprope', 'Top Rope'),
@@ -44,16 +60,22 @@ PROTECTION_STYLE_CHOICES = (
 class Route(models.Model):
     name = models.CharField(max_length=64)
     protection_style = models.CharField(max_length=8, choices=PROTECTION_STYLE_CHOICES)
-    mountainproject = models.URLField(null=True)
+    mountainproject = models.URLField(blank=True)
 
     # TODO Write test for this
     @property
     def difficulty(self):
         return self.pitches.order_by('-difficulty__order').first().difficulty
 
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.difficulty)
+
 class RouteDifficulty(models.Model):
     order = models.PositiveSmallIntegerField()
     name = models.CharField(max_length=8)
+
+    def __str__(self):
+        return self.name
 
 ATTEMPT_RESULT_CHOICES = (
     ('send', 'Sent'),
@@ -70,6 +92,7 @@ PROTECTION_CHOICES = (
 
 class Attempt(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
     notes = models.TextField()
     boulder = models.ForeignKey('Boulder', null=True, on_delete=models.PROTECT, related_name='attempts')
     route = models.ForeignKey('Route', null=True, on_delete=models.PROTECT, related_name='attempts')
@@ -85,11 +108,13 @@ class Attempt(models.Model):
             ),
         )
 
+        ordering = ('date',)
+
 STYLE_CHOICES = (
     ('onsight', 'On Sight'),
     ('flash', 'Flash'),
-    ('complete', 'Complete'),
-    ('project', 'project'),
+    ('project', 'Project'),
+    ('other', 'Other'),
 )
 
 class Todo(models.Model):
@@ -98,6 +123,7 @@ class Todo(models.Model):
     protection = models.CharField(max_length=8, choices=PROTECTION_CHOICES)
     boulder = models.ForeignKey('Boulder', null=True, on_delete=models.PROTECT, related_name='todos')
     route = models.ForeignKey('Route', null=True, on_delete=models.PROTECT, related_name='todos')
+    style = models.CharField(max_length=8, choices=STYLE_CHOICES)
 
     class Meta:
         constraints = (
@@ -106,3 +132,15 @@ class Todo(models.Model):
                 name='todo_boulder_xor_route',
             ),
         )
+
+        ordering = ('route__name',)
+
+    def __str__(self):
+        if self.boulder:
+            climb = self.boulder
+        elif self.route:
+            climb = self.route
+        else:
+            raise Exception()
+
+        return '{} {}'.format(self.style, climb)

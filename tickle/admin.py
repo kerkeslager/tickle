@@ -1,3 +1,19 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+class PitchInline(admin.TabularInline):
+    model = models.Pitch
+
+class RouteAdmin(admin.ModelAdmin):
+    inlines = (
+        PitchInline,
+    )
+
+admin.site.register(models.Route, RouteAdmin)
+
+admin.site.register(models.Attempt)
+admin.site.register(models.Boulder)
+admin.site.register(models.BoulderDifficulty)
+admin.site.register(models.RouteDifficulty)
+admin.site.register(models.Todo)
