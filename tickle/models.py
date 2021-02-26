@@ -9,28 +9,78 @@ class QQ:
 
 Q.__bases__ += (QQ, )
 
+BOULDER_DIFFICULTY_CHOICES = (
+    ('v0', 'v0'),
+    ('v1', 'v1'),
+    ('v2', 'v2'),
+    ('v3', 'v3'),
+    ('v4', 'v4'),
+    ('v5', 'v5'),
+    ('v6', 'v6'),
+    ('v7', 'v7'),
+    ('v8', 'v8'),
+    ('v9', 'v9'),
+    ('v10', 'v10'),
+    ('v11', 'v11'),
+    ('v12', 'v12'),
+    ('v13', 'v13'),
+    ('v14', 'v14'),
+    ('v15', 'v15'),
+    ('v16', 'v16'),
+)
+
 class Boulder(models.Model):
     name = models.CharField(max_length=64)
-    difficulty = models.ForeignKey(
-        'BoulderDifficulty',
-        null=True,
-        on_delete=models.PROTECT,
-        related_name='boulders',
+    difficulty = models.CharField(
+        choices=BOULDER_DIFFICULTY_CHOICES,
+        max_length=8,
     )
     mountainproject = models.URLField(blank=True)
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.difficulty)
 
-class BoulderDifficulty(models.Model):
-    order = models.PositiveSmallIntegerField()
-    name = models.CharField(max_length=8)
-
-    class Meta:
-        ordering = ('order',)
-
-    def __str__(self):
-        return self.name
+PITCH_DIFFICULTY_CHOICES = (
+    ('3', '3'),
+    ('4', '4'),
+    ('5.0', '5.0'),
+    ('5.1', '5.1'),
+    ('5.2', '5.2'),
+    ('5.3', '5.3'),
+    ('5.4', '5.4'),
+    ('5.5', '5.5'),
+    ('5.6', '5.6'),
+    ('5.7', '5.7'),
+    ('5.7+', '5.7+'),
+    ('5.8', '5.8'),
+    ('5.8+', '5.8+'),
+    ('5.9', '5.9'),
+    ('5.9+', '5.9+'),
+    ('5.10a', '5.10a'),
+    ('5.10b', '5.10b'),
+    ('5.10c', '5.10c'),
+    ('5.10d', '5.10d'),
+    ('5.11a', '5.11a'),
+    ('5.11b', '5.11b'),
+    ('5.11c', '5.11c'),
+    ('5.11d', '5.11d'),
+    ('5.12a', '5.12a'),
+    ('5.12b', '5.12b'),
+    ('5.12c', '5.12c'),
+    ('5.12d', '5.12d'),
+    ('5.13a', '5.13a'),
+    ('5.13b', '5.13b'),
+    ('5.13c', '5.13c'),
+    ('5.13d', '5.13d'),
+    ('5.14a', '5.14a'),
+    ('5.14b', '5.14b'),
+    ('5.14c', '5.14c'),
+    ('5.14d', '5.14d'),
+    ('5.15a', '5.15a'),
+    ('5.15b', '5.15b'),
+    ('5.15c', '5.15c'),
+    ('5.15d', '5.15d'),
+)
 
 class Pitch(models.Model):
     order = models.PositiveSmallIntegerField()
@@ -39,11 +89,11 @@ class Pitch(models.Model):
         on_delete=models.CASCADE,
         related_name='pitches',
     )
-    difficulty = models.ForeignKey(
-        'RouteDifficulty',
-        on_delete=models.PROTECT,
-        related_name='pitches',
+    difficulty = models.CharField(
+        choices=PITCH_DIFFICULTY_CHOICES,
+        max_length=8,
     )
+    name = models.CharField(blank=True, max_length=32)
 
     class Meta:
         ordering = ('order',)
@@ -65,17 +115,10 @@ class Route(models.Model):
     # TODO Write test for this
     @property
     def difficulty(self):
-        return self.pitches.order_by('-difficulty__order').first().difficulty
+        return self.pitches.order_by('-difficulty').first().difficulty
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.difficulty)
-
-class RouteDifficulty(models.Model):
-    order = models.PositiveSmallIntegerField()
-    name = models.CharField(max_length=8)
-
-    def __str__(self):
-        return self.name
 
 ATTEMPT_RESULT_CHOICES = (
     ('send', 'Sent'),
