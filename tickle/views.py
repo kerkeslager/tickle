@@ -18,17 +18,9 @@ class BoulderDetailView(DetailView):
     pass
 boulder_detail = BoulderDetailView.as_view()
 
-class BoulderListView(ListView):
-    pass
-boulder_list = BoulderListView.as_view()
-
 class RouteDetailView(DetailView):
     pass
 route_detail = RouteDetailView.as_view()
-
-class RouteListView(ListView):
-    pass
-route_list = RouteListView.as_view()
 
 class TodoListView(ListView):
     pass
