@@ -1,11 +1,19 @@
-{% if area %}
-  {% include 'tickle/area_breadcrumb.html' with area=area.parent is_parent=True %}
-  &gt;
-  {% if is_parent %}
-    <a href='{% url "tickle:area-detail" pk=area.pk %}'>{{ area.name }}</a>
+<nav class='tickle-breadcrumb'>
+  {% if area %}
+    {% include 'tickle/area_breadcrumb.html' with area=area.parent is_parent=True %}
+    &gt;
+    {% if is_parent %}
+      <span class='tickle-breadcrumb-item'>
+        <a href='{% url "tickle:area-detail" pk=area.pk %}'>{{ area.name }}</a>
+      </span>
+    {% else %}
+      <span class='tickle-breadcrumb-item'>
+        {{ area.name }}
+      </span>
+    {% endif %}
   {% else %}
-    {{ area.name }}
+    <span class='tickle-breadcrumb-item'>
+      <a href='{% url "tickle:area-list" %}'>All</a>
+    </span>
   {% endif %}
-{% else %}
-  <a href='{% url "tickle:area-list" %}'>All</a>
-{% endif %}
+</nav>
