@@ -169,8 +169,20 @@ class Attempt(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     notes = models.TextField(blank=True)
-    boulder = models.ForeignKey('Boulder', null=True, on_delete=models.PROTECT, related_name='attempts')
-    route = models.ForeignKey('Route', null=True, on_delete=models.PROTECT, related_name='attempts')
+    boulder = models.ForeignKey(
+        'Boulder',
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name='attempts',
+    )
+    route = models.ForeignKey(
+        'Route',
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name='attempts',
+    )
     result = models.CharField(max_length=8, choices=ATTEMPT_RESULT_CHOICES)
     prior_knowledge = models.BooleanField(default=True)
     protection_used = models.CharField(max_length=8, choices=PROTECTION_CHOICES)
@@ -196,8 +208,20 @@ class Todo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     notes = models.TextField(blank=True)
     protection = models.CharField(max_length=8, choices=PROTECTION_CHOICES)
-    boulder = models.ForeignKey('Boulder', null=True, on_delete=models.PROTECT, related_name='todos')
-    route = models.ForeignKey('Route', null=True, on_delete=models.PROTECT, related_name='todos')
+    boulder = models.ForeignKey(
+        'Boulder',
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name='todos',
+    )
+    route = models.ForeignKey(
+        'Route',
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name='todos',
+    )
     style = models.CharField(max_length=8, choices=STYLE_CHOICES)
 
     class Meta:

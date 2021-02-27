@@ -1,7 +1,7 @@
 import pathlib
 from setuptools import setup, find_packages
 HERE = pathlib.Path(__file__).parent
-VERSION = '0.0.9'
+VERSION = '0.0.10.pre-alpha'
 PACKAGE_NAME = 'django_predrill_tickle'
 AUTHOR = 'David Kerkeslager'
 AUTHOR_EMAIL = 'david@kerkeslager.com'
