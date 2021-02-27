@@ -4,7 +4,7 @@
 {% block tickle_header_name %}{{ route.name }}{% endblock %}
 
 {% block tickle_nav %}
-  {% include 'tickle/area_breadcrumb.html' with area=route.area is_parent=True %}
+  {% include 'tickle/area_breadcrumb_trail.html' with area=route.area is_parent=True %}
 {% endblock %}
 
 {% block tickle_extra_header %}
