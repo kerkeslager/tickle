@@ -197,6 +197,12 @@ class Attempt(models.Model):
 
         ordering = ('date',)
 
+    def __str__(self):
+        return '{} on {}'.format(
+            self.route,
+            self.date,
+        )
+
 STYLE_CHOICES = (
     ('onsight', 'On Sight'),
     ('flash', 'Flash'),
