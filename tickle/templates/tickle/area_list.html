@@ -14,7 +14,7 @@
         {% if area.children.count > 0 %}
           <ul>
             {% for child in area.children.all %}
-              <li><a href='{% url "tickle:area-detail" pk=area.pk %}'>{{ area.name }}</a></li>
+              <li><a href='{% url "tickle:area-detail" pk=child.pk %}'>{{ child.name }}</a></li>
             {% endfor %}
           </ul>
         {% endif %}
