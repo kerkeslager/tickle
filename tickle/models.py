@@ -155,6 +155,7 @@ class Route(models.Model):
 ATTEMPT_RESULT_CHOICES = (
     ('send', 'Sent'),
     ('fall', 'Fall'),
+    ('unknown', 'Unknown'),
 )
 
 PROTECTION_CHOICES = (
@@ -166,7 +167,11 @@ PROTECTION_CHOICES = (
 )
 
 class Attempt(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='attempts',
+    )
     date = models.DateField()
     notes = models.TextField(blank=True)
     boulder = models.ForeignKey(
@@ -211,7 +216,11 @@ STYLE_CHOICES = (
 )
 
 class Todo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='todos',
+    )
     notes = models.TextField(blank=True)
     protection = models.CharField(max_length=8, choices=PROTECTION_CHOICES)
     boulder = models.ForeignKey(
