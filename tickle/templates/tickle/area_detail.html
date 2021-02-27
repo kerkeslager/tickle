@@ -9,9 +9,9 @@
 
 {% block tickle_main %}
   {% if area.children.count > 0 %}
-    <ul>
+    <ul class='tickle-area-list'>
       {% for child in area.children.all %}
-        {% include 'tickle/area_list_item.html' with area=child %}
+        <li><a href='{% url "tickle:area-detail" pk=child.pk %}'>{{ child.name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}

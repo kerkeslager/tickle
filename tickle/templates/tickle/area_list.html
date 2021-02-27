@@ -4,9 +4,39 @@
 {% block tickle_header_name %}All Areas{% endblock %}
 
 {% block tickle_main %}
-  <ul>
+  <ul class='tickle-area-list'>
     {% for area in area_list %}
-      {% include 'tickle/area_list_item.html' %}
+      <li>
+        <header>
+          <a href='{% url "tickle:area-detail" pk=area.pk %}'>{{ area.name }}</a>
+        </header>
+
+        {% if area.children.count > 0 %}
+          <ul>
+            {% for child in area.children.all %}
+              <li><a href='{% url "tickle:area-detail" pk=area.pk %}'>{{ area.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if area.boulders.count > 0 %}
+          Boulders
+          <ul>
+            {% for boulder in area.boulders.all %}
+              <li>{% include 'tickle/boulder_list_item.html' %}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if area.routes.count > 0 %}
+          Routes
+          <ul>
+            {% for route in area.routes.all %}
+              <li>{% include 'tickle/route_list_item.html' %}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
     {% endfor %}
   </ul>
 {% endblock %}
