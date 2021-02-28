@@ -1,0 +1,10 @@
+<nav id='tickle-breadcrumb-trail'>
+  {% include 'tickle/area_breadcrumb.html' with area=boulder.area is_parent=True %}
+  <span class='tickle-breadcrumb-item'>
+    {% if is_parent %}
+      <a href='{% url "tickle:boulder-detail" pk=boulder.pk %}'>{{ boulder.name }}</a>
+    {% else %}
+      {{ boulder.name }}
+    {% endif %}
+  </span>
+</nav>
